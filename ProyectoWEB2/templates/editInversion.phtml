@@ -1,0 +1,54 @@
+<?php require "header.phtml";?>
+
+<div class="container text-center">
+    <!-- Encabezado de la página -->
+    <h1 class="text-white rounded bg-primary">EDITAR INVERSION</h1>
+    <div class="container text-center border-top m-3 pt-3">
+        <div class="card m-3">
+            <div class="card-header">
+                <!-- Muestra el ID de la inversión -->
+                <p class="lead"><strong>ID de Inversión</strong> = <?= $datos->IDInversiones ?></p>
+            </div>
+            <form action="editRealizado" method="POST">
+                <ul class="list-group list-group-flush">
+                    <!-- Campo oculto para el ID de la inversión -->
+                    <input class="d-none" type="text" name="IDInversiones" value="<?= $datos->IDInversiones ?>" readonly>
+                    <!-- Muestra el nombre del usuario -->
+                    <li class="list-group-item"><p class="lead"><strong>Name</strong> = <?= $datos->UserName ?></p></li>
+                    <!-- Muestra el ID del usuario -->
+                    <li class="list-group-item"><p class="lead"><strong>ID Usuario</strong> = <?= $datos->IDUsuario ?></p></li>
+                    <!-- Muestra el ID del plan actual -->
+                    <li class="list-group-item"><p class="lead"><strong>ID Plan</strong> = <?= $datos->IDPlan ?></p></li>
+                    <!-- Muestra la fecha de la inversión -->
+                    <li class="list-group-item"><p class="lead"><strong>Fecha</strong> = <?= $datos->Fecha ?></p></li>
+                    <!-- Selección de un nuevo plan desde una lista desplegable -->
+                    <li class="list-group-item"><p class="lead"><strong>Plan</strong>  
+                        <div class="">
+                            <!-- Lista desplegable con opciones de planes -->
+                            <select class="form-select mt-1 text-center" aria-label="Default select example" name="planSeleccionado">
+                                <!-- Opción seleccionada por defecto (plan actual) -->
+                                <option selected>Su plan actual es <?= $datos->Plan ?></option>
+                                <!-- Iteración para mostrar otras opciones de planes -->
+                                <?php foreach($datosPlanes as $plan){ ?>
+                                    <option value="<?= $plan->ID ?>"><?= $plan->Plan ?></option>
+                                <?php } ?>
+                            </select>
+                        </div>
+                    </p></li>
+                    <!-- Muestra la duración actual de la inversión -->
+                    <li class="list-group-item"><p class="lead"><strong>Duracion</strong> = <?= $datos->Duracion ?></p></li>
+                    <!-- Muestra el precio actual de la inversión -->
+                    <li class="list-group-item"><p class="lead"><strong>Precio</strong> = <?= $datos->Precio ?></p></li>
+                    <!-- Muestra el porcentaje de ganancia actual -->
+                    <li class="list-group-item"><p class="lead"><strong>Porcentaje de ganancia</strong> = <?= $datos->Porcentaje ?></p></li>
+                    <!-- Espacio en blanco en la lista de elementos -->
+                    <li class="list-group-item"><p class="lead"></p></li>
+                </ul>
+                <!-- Botón para enviar el formulario de modificación de inversión -->
+                <button type="submit" class="btn btn-primary lead text-white mb-4">Modificación de Inversión</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<?php require_once "footer.phtml"; ?>

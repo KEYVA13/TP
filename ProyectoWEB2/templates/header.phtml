@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <base href=<?= BASE_URL; ?>>
+    <title>Página</title>
+</head>
+<body>
+
+<!-- Barra de navegación -->
+<div class="container">
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid">
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="home">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="invertir">Invertir</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="billetera">Billetera</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="d-flex">
+                <?php
+                if (!empty($_SESSION['Id'])) { ?>
+                    <a class="btn btn-danger" href="cerrarSesion">Logout</a>
+                <?php } else { ?>
+                    <a class="btn btn-success" href="login">Login</a>
+                <?php } ?>
+            </div>
+        </div>
+    </nav>
+</div>

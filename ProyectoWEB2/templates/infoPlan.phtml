@@ -1,0 +1,32 @@
+<?php require "header.phtml"; ?>
+
+<div class="container text-center mt-5">
+    <h1 class="border-bottom bg-primary text-white rounded-circle">DESCRIPCION PLAN</h1>
+
+    <div class="card m-5">
+        <div class="card-header">
+            <!-- Muestra el ID del plan -->
+            <p class="lead"><strong>ID</strong> = <?= $Plan->ID ?></p>
+        </div>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">
+                <!-- Muestra el nombre del plan -->
+                <p class="lead"><strong>Plan</strong> = <?= $Plan->Plan ?></p>
+            </li>
+            <li class="list-group-item">
+                <!-- Muestra la duración del plan en días -->
+                <p class="lead"><strong>Duracion</strong> = <?= $Plan->Duracion ?> Dias</p>
+            </li>
+            <li class="list-group-item">
+                <!-- Muestra el precio del plan -->
+                <p class="lead"><strong>Precio</strong> = $<?= $Plan->Precio ?></p>
+            </li>
+            <li class="list-group-item">
+                <!-- Muestra el porcentaje de ganancia del plan -->
+                <p class="lead"><strong>Porcentaje de ganancia</strong> = <?= $Plan->Porcentaje ?>%</p>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<?php require "footer.phtml"; ?>

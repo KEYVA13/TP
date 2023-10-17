@@ -1,0 +1,74 @@
+<?php require "header.phtml"; ?>
+
+<!-- Contenedor principal -->
+<div class="container d-flex justify-content-center">
+    <?php 
+    // Comprueba si el usuario ha iniciado sesión
+    if (!empty($_SESSION['Id'])){
+    ?>
+        <!-- Formulario para agregar un plan (visible si el usuario ha iniciado sesión) -->
+        <form class="container d-flex p-3 pb-3 border-bottom" action="AgregarPlan" method="POST">
+            <div class="mb-3 m-2">
+                <label for="plan" class="form-label">Plan</label>
+                <input type="text" class="form-control" id="plan" name="plan" required>
+            </div>
+
+            <div class="mb-3 m-2">
+                <label for="duracion" class="form-label">Duración</label>
+                <input type="number" class="form-control" id="duracion" name="duracion" required>
+            </div>
+
+            <div class="mb-3 m-2">
+                <label for="precio" class="form-label">Precio</label>
+                <input type="number" class="form-control" id="precio" name="precio" required>
+            </div>
+
+            <div class="mb-3 m-2">
+                <label for="porcentaje" class="form-label">Porcentaje de ganancia</label>
+                <input type="number" class="form-control" id="porcentaje" name="porcentaje" required>
+            </div>
+            
+            <button type="submit" class="btn btn-outline-primary rounded-circle">Agregar Plan</button>
+        </form>
+    <?php 
+    }
+    ?>
+</div>
+
+<div class="container">
+    <div class="d-flex justify-content-center mt-5">
+        <!-- Enlace para mostrar los planes disponibles -->
+        <a href="MostrarPlanes" class="btn btn-primary">Mostrar Planes Disponibles</a>
+    </div>
+    <div class="mt-5 d-flex">
+        <?php 
+        if (isset($planes)){
+            // Recorre la lista de planes y muestra cada uno
+            foreach($planes as $plan):
+        ?>
+                <div class="card-body text-center border border-primary m-1">
+                    <!-- Nombre del plan -->
+                    <h4 class="card-title"><?= $plan->Plan ?></h4> 
+                    <!-- Precio del plan -->
+                    <p class="card-text">Precio: <?= $plan->Precio ?></p>
+                    
+                    <a href="infoPlan/<?= $plan->ID ?>" class="btn btn-primary">+</a>
+                    
+                    <?php 
+                    // Comprueba si el usuario ha iniciado sesión para mostrar opciones adicionales
+                    if (!empty($_SESSION['Id'])){ 
+                    ?>
+                        <!-- Enlace para eliminar un plan -->
+                        <a href="DeletePlan/<?= $plan->ID ?>" class="btn btn-small btn-danger"><i class="bi bi-trash"></i></a>
+                        <!-- Enlace para editar un plan -->
+                        <a href="showEditPlan/<?= $plan->ID ?>" class="btn btn-small btn-warning"><i class="bi bi-pencil-square"></i></a>
+                    <?php } ?>
+                </div>
+        <?php 
+            endforeach;
+        }
+        ?>
+    </div>
+</div>
+
+<?php require "footer.phtml"; ?>

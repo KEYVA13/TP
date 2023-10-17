@@ -1,0 +1,113 @@
+<?php require "header.phtml";?> <!-- Incluye la cabecera de la página -->
+
+<div class="container d-flex justify-content-center p-5 border-top border-bottom">
+    <!-- Contenedor principal con contenido centrado -->
+    <div class="badge bg-primary text-wrap" style="width: 6rem;">
+        <h4>ID:</h4>
+    </div>
+    <div class="badge border-bottom text-wrap text-primary" style="width: 6rem;">
+        <H5> <?= (!empty($_SESSION['Id'])) ? $datosUsuario->IDUsuario : '-'; ?> </H5>
+    </div>
+
+    <div class="badge bg-primary text-wrap" style="width: 7rem;">
+        <h4>User:</h4>
+    </div>
+    <div class="badge border-bottom text-wrap text-primary" style="width: 6rem;">
+        <H5> <?= (!empty($_SESSION['Id'])) ? $datosUsuario->UserName : '-'; ?></H5>
+    </div>
+</div>
+
+<?php if (!empty($_SESSION['Id'])) { ?> <!-- Si el usuario ha iniciado sesión -->
+    <div class="container mt-5 border-bottom">
+        <div class="d-flex justify-content-center">
+            <h2>Realizar inversión</h2>
+        </div>
+        <div class="text-center">
+            <div class="m-5 lead">
+                <p>Seleccione Plan</p>
+                <div class="d-flex justify-content-center">
+                    <form action="comprarPlan" method="POST">
+                        <select class="form-select mt-4 text-center" aria-label="Default select example" name="IDPlan">
+                            <?php foreach($datosPlanes as $dato){ ?>
+                                <option value="<?= $dato->ID ?>"><?= $dato->Plan ?></option>
+                            <?php } ?>
+                        </select>
+                        <div class="m-5"><button type="submit" class="btn btn-primary lead text-white">Comprar</button></div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+<?php } ?>
+
+<div class="container mt-5">
+    <div class="d-flex justify-content-center">
+        <h2>Inversiones Realizadas</h2>
+    </div>
+    <?php if (!empty($_SESSION['Id'])) { ?> <!-- Si el usuario ha iniciado sesión -->
+        <div>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Nro Usuario</th>
+                        <th scope="col">Fecha</th>
+                        <th scope="col">Plan</th>
+                        <th scope="col">Duracion</th>
+                        <th scope="col">Precio</th>
+                        <th scope="col">Porcentaje</th>
+                        <th scope="col">User Name</th>
+                        <th scope="col">Cambios</th>
+                    </tr>
+                </thead>
+                <?php foreach ($datosTotales as $dato) { ?>
+                    <tbody>
+                        <tr>
+                            <th scope="row"> <?= $dato->IDUsuario ?></th>
+                            <td><?= $dato->Fecha ?></td>
+                            <td><?= $dato->Plan ?></td>
+                            <td><?= $dato->Duracion ?> <span>Dias</span></td>
+                            <td> <span>$</span> <?= $dato->Precio ?></td>
+                            <td><?= $dato->Porcentaje ?><span>%</span></td>
+                            <td><?= $dato->UserName ?></td>
+                            <td>
+                               <a href="deleteInversion/<?= $dato->IDInversiones ?>" class="btn btn-small btn-danger"><i class="bi bi-trash"></i></a>
+                               <a href="showEditInversion/<?= $dato->IDInversiones ?>" class="btn btn-small btn-warning"><i class="bi bi-pencil-square"></i></a>
+                            </td>
+                        </tr>
+                    </tbody>
+                <?php } ?>
+            </table>
+        </div>
+    <?php } else { ?> <!-- Si el usuario no ha iniciado sesión -->
+        <div>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Nro inversion</th>
+                        <th scope="col">Fecha</th>
+                        <th scope="col">Plan</th>
+                        <th scope="col">Duracion</th>
+                        <th scope="col">Precio</th>
+                        <th scope="col">Porcentaje</th>
+                        <th scope="col">User Name</th>
+                    </tr>
+                </thead>
+                <?php foreach ($datosTotales as $dato) { ?>
+                    <tbody>
+                        <tr>
+                            <th scope="row"><?= $dato->IDUsuario ?></th>
+                            <td><?= $dato->Fecha ?></td>
+                            <td><?= $dato->Plan ?></td>
+                            <td><?= $dato->Duracion ?></td>
+                            <td><?= $dato->Precio ?></td>
+                            <td><?= $dato->Porcentaje ?></td>
+                            <td><?= $dato->UserName ?></td>
+                        </tr>
+                    </tbody>
+                <?php } ?>
+            </table>
+        </div>
+    <?php } ?>
+</div>
+
+<?php require "footer.phtml";?> <!-- Incluye el pie de página -->

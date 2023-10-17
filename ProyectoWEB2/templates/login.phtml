@@ -1,0 +1,26 @@
+<?php require_once "header.phtml"; ?>
+
+<!-- Contenedor principal -->
+<div class="container mt-5 mb-5 border p-5 d-flex justify-content-center text-align-center">
+    <!-- Formulario para el inicio de sesión -->
+    <form action="loguearse" method="POST">
+        <!-- Campo para el nombre de usuario -->
+        <div class="mb-3">
+            <label for="nombre" class="form-label">Nombre</label>
+            <input type="text" class="form-control" id="nombre" name="nombre">
+            <!-- Información adicional sobre la privacidad del nombre de usuario -->
+            <div class="form-text text-primary">Nunca compartiremos su Usuario con nadie más.</div>
+        </div>
+        <!-- Campo para la contraseña del usuario -->
+        <div class="mb-3">
+            <label for="contraseña" class="form-label">Contraseña</label>
+            <input type="password" class="form-control" id="contraseña" name="contraseña">
+            <!-- Información adicional sobre la privacidad de la contraseña -->
+            <div class="form-text text-primary">Su contraseña es totalmente privada, no se puede recuperar</div>
+        </div>
+        <!-- Botón para enviar el formulario -->
+        <button type="submit" class="btn btn-primary">Enviar</button>
+    </form>
+</div>
+
+<?php require_once "footer.phtml"; ?>

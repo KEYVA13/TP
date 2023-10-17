@@ -1,0 +1,83 @@
+<?php require "header.phtml";?>
+
+<div class="container">
+    <!-- Imagen de banner -->
+    <img src="./Imagenes/banner.jpg" class="img-fluid tamanioCarrusel" alt="...">
+    <div class="mt-5 row">
+        <div class="col-6 ">
+            <!-- Título para las Actualizaciones -->
+            <h1 class="d-flex justify-content-center">Actualizaciones</h1>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <!-- Cabeceras de la tabla -->
+                        <th scope="col">Fecha</th>
+                        <th scope="col">Nuevo</th>
+                        <th scope="col">Acción</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach($Actualizaciones as $actualizacion) { ?>
+                        <!-- Iterar a través de las actualizaciones -->
+                        <tr>
+                            <td><?= $actualizacion->Fecha ?></td>
+                            <td><?= $actualizacion->Nuevo ?></td>
+                            <?php if(!empty($_SESSION['Id'])){ ?>
+                                <td>
+                                    <!-- Si el usuario está logueado, muestra botón para eliminar -->
+                                    <a href="deleteActualizacion/<?= $actualizacion->IDActualizaciones ?>" class="btn btn-small btn-danger"><i class="bi bi-trash"></i></a>
+                                </td>
+                            <?php } else { ?>
+                                <td>
+                                    <!-- Si el usuario no está logueado, muestra un ícono de prohibido -->
+                                    <i class="bi bi-ban"></i>
+                                </td>
+                            <?php } ?>
+                        </tr>
+                    <?php } ?>
+                    <!-- Agregar nueva actualización si el usuario está logueado -->
+                    <?php if(!empty($_SESSION['Id'])){ ?>
+                        <tr>
+                            <form action="addActualizacion" method="POST">
+                                <td><input type="text" name="Fecha" placeholder="Fecha de Actualización"></td>
+                                <td><input type="text" name="Nuevo" placeholder="Info de Actualización"></td>
+                                <td><button type="submit" class="btn btn-primary">Agregar</button></td>
+                            </form>
+                        </tr>
+                        <!-- Mostrar aviso si existe uno -->
+                        <?php if (!empty($aviso)) { ?>
+                            <div class="alert alert-danger">
+                                <p><?= $aviso ?></p>
+                            </div>
+                        <?php } ?>
+                    <?php } ?>
+                </tbody>
+            </table>
+        </div>
+        <!-- Convertidor -->
+        <div class="col-6">
+            <h1 class="d-flex justify-content-center">Convertidor</h1>
+            <form action="precio" method="POST">
+                <p class="lead">Elija moneda a convertir</p>
+                <select class="form-select mt-4" aria-label="Default select example" name="convertir">
+                    <option value="BTC">BTC</option>
+                    <option value="USDT">USDT</option>
+                    <option value="BNB">BNB</option>
+                </select>
+                <p class="m-1 d-flex justify-content-center fs-5">X</p>
+                <p class="lead">Moneda a hacer la conversión</p>
+                <select class="form-select" aria-label="Default select example" name="conveccion">
+                    <option value="ARS">ARS</option>
+                    <option value="BRL">BRL</option>
+                </select>
+                <div class="d-flex row">
+                    <!-- Precio resultante de la conversión -->
+                    <p class ="col-6 lead m-4 border-bottom">Precio: $ <span><?php if(isset($precio)){echo $precio;}?></span></p>
+                    <button type="submit" class="btn btn-success m-3 col-3">Cotizar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<?php require "footer.phtml"; ?>
